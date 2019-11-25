@@ -51,6 +51,9 @@ class Header extends Component {
                                 <MDBNavLink to="/document">Документы</MDBNavLink>
                             </MDBNavItem>
                             <MDBNavItem>
+                                <MDBNavLink to="/products">Продукты</MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
                                 <MDBNavLink to="/contact">Контакты</MDBNavLink>
                             </MDBNavItem>
                         </MDBNavbarNav>

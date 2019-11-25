@@ -5,6 +5,8 @@ import {
     ContactPage,
     LoginPage,
     Orders,
+    ProductPage,
+    ProductPageInfo,
     CustomerPage,
     BalancePage,
     DocumentPage,
@@ -49,6 +51,12 @@ export default function App() {
                     )}/>
                     <Route path="/document" render={() => (
                         <DocumentPage/>
+                    )}/>
+                    <Route path="/products" exact render={() => (
+                        <ProductPage/>
+                    )}/>
+                    <Route path="/products/:id" render={() => (
+                        <ProductPageInfo/>
                     )}/>
                     <Route path="/login" component={LoginPage}/>
                     <Route render={() => <h2>Page not found</h2>}/>
