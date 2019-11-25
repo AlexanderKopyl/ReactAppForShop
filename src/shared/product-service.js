@@ -58,7 +58,7 @@ class ProductService {
                 model: items.model,
                 name: oc_product_description.name,
                 description: oc_product_description.description,
-                price: items.price,
+                price: +items.price + " UAH",
                 quantity: items.quantity,
                 viewed: items.viewed
             };

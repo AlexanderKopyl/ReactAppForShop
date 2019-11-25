@@ -9,8 +9,6 @@ import {
     MDBBtn,
     MDBIcon,
     MDBCard,
-    MDBListGroup,
-    MDBListGroupItem
 } from "mdbreact";
 import {Redirect, withRouter, Link} from 'react-router-dom';
 import {authService} from "../../../shared/auth-service";
@@ -43,6 +41,7 @@ const ProductPageInfo = ({match}) => {
         )
     }
 
+   const createMarkup = (html) => { return {__html: html}};
 
     return (
         <div className="box-page">
@@ -66,7 +65,7 @@ const ProductPageInfo = ({match}) => {
 
             <MDBCard className={"description"}>
                 {
-                    items.description
+                    <div dangerouslySetInnerHTML={createMarkup(items.description)} />
 
                 }
             </MDBCard>
