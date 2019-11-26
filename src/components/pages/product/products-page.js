@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {MDBContainer, MDBDataTable} from 'mdbreact';
 import {Redirect, withRouter} from 'react-router-dom';
 import {authService} from "../../../shared/auth-service";
@@ -6,11 +6,9 @@ import {productService} from "../../../shared/product-service";
 import fun from '../../../lib/function'
 import Header from "../../header";
 
-
 const ProductPage = () => {
 
     const [items, setItems] = useState([]);
-    // const user_id = fun.getItem('user_id');
 
     useEffect(() => {
         const fetchItems = async () => {
@@ -25,6 +23,7 @@ const ProductPage = () => {
     }, []);
 
     const auth_token = fun.getItem('auth_token');
+
 
     const data = {
         columns: [
@@ -80,7 +79,6 @@ const ProductPage = () => {
         rows: items
     };
 
-
     if (auth_token === 'null' || auth_token === null) {
         return (
             <Redirect to="/login"/>
@@ -92,12 +90,19 @@ const ProductPage = () => {
         <div className="box-page">
             <Header/>
             <MDBContainer>
-                <MDBDataTable
-                    striped
-                    bordered
-                    hover
-                    data={data}
-                />
+                {items.length
+                    ?
+                    <MDBDataTable
+                        striped
+                        bordered
+                        hover
+                        data={data}
+                    />
+                    :
+                    <div className="spinner-grow text-info" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                }
             </MDBContainer>
         </div>
     );

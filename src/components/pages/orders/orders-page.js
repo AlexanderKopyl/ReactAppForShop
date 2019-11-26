@@ -98,12 +98,14 @@ const DatatablePage = () => {
         <div className="box-page">
             <Header/>
             <MDBContainer>
-                <MDBDataTable
+                {items.length ? <MDBDataTable
                     striped
                     bordered
                     hover
                     data={data}
-                />
+                /> : <div className="spinner-grow text-info" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>}
             </MDBContainer>
         </div>
     );

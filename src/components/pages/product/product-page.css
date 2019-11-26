@@ -1,0 +1,8 @@
+.card.description {
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+.card.description div {
+    text-align: start;
+}

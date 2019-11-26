@@ -19,7 +19,6 @@ class ProductService {
             });
             let items = await data.json();
             let items_to_table = [];
-
             items.result.forEach((elem) =>{
                 let {oc_product_description} = elem;
                 const arrayToTable = {
@@ -57,6 +56,7 @@ class ProductService {
                 product_id: items.product_id,
                 model: items.model,
                 name: oc_product_description.name,
+                attr: await this.getAllAttributes(match),
                 description: oc_product_description.description,
                 price: +items.price + " UAH",
                 quantity: items.quantity,
@@ -66,6 +66,28 @@ class ProductService {
             throw  new Error(e)
         }
 
+    }
+    async getAllAttributes(match){
+        try {
+            const data = await fetch(`${this.url}product/attr/${match.params.id}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + fun.getItem('auth_token')
+                }
+            });
+            let {result: items} = await data.json();
+            let attrs = [];
+
+            items.forEach((elem) =>{
+                let data = {
+                    text:elem.text,
+                    name:elem.oc_attribute_description.name
+                };
+                attrs.push(data)
+            });
+            return attrs;
+        } catch (e) {
+            throw  new Error(e)
+        }
     }
 
 

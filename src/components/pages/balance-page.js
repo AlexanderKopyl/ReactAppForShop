@@ -21,8 +21,8 @@ const BalancePage = () => {
             const items = await customerService.getReward(user_id);
             const {result:{count}} = await customerService.getRewardTotal(user_id);
             const {result:{total}} = await customerService.getRewardSum(user_id);
-            const arrayTostate = {items,count,total};
-            setItems(arrayTostate);
+            const arrayToState = {items,count,total};
+            setItems(arrayToState);
         };
 
         fetchItems();
@@ -61,7 +61,7 @@ const BalancePage = () => {
         ],
         rows: items.items
     };
-
+    
     return (
         <div className="box-page">
             <Header/>
@@ -78,12 +78,14 @@ const BalancePage = () => {
                 </span>
 
                 <ExportCSV csvData={items.items} fileName={"balance"}/>
-                <MDBDataTable
+                {items.items ? <MDBDataTable
                     striped
                     bordered
                     hover
                     data={data}
-                />
+                /> : <div className="spinner-grow text-info" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>}
             </MDBContainer>
         </div>
     );

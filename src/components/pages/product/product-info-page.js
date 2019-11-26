@@ -1,21 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import {
-    MDBContainer,
-    MDBRow,
-    MDBCol,
-    MDBTable,
-    MDBTableBody,
-    MDBTableHead,
-    MDBBtn,
-    MDBIcon,
-    MDBCard,
-} from "mdbreact";
-import {Redirect, withRouter, Link} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {MDBBtn, MDBCard, MDBCol, MDBContainer, MDBIcon, MDBRow,} from "mdbreact";
+import {Link, Redirect, withRouter} from 'react-router-dom';
 import {authService} from "../../../shared/auth-service";
 import {productService} from "../../../shared/product-service";
 import fun from '../../../lib/function'
 import Header from "../../header";
-
+import "./product-page.css";
 
 const ProductPageInfo = ({match}) => {
 
@@ -26,12 +16,10 @@ const ProductPageInfo = ({match}) => {
 
             await authService.checkAuthTokenTime();
             const items = await productService.getProduct(match);
-            console.log(items);
             setItems(items);
-
         };
         fetchItems();
-    },[match]);
+    }, [match]);
 
     const auth_token = fun.getItem('auth_token');
 
@@ -40,60 +28,59 @@ const ProductPageInfo = ({match}) => {
             <Redirect to="/login"/>
         )
     }
-
-   const createMarkup = (html) => { return {__html: html}};
+    console.log(items.attr);
+    const createMarkup = (html) => {
+        return {__html: html}
+    };
 
     return (
         <div className="box-page">
             <Header/>
-        <MDBContainer>
-            <MDBRow>
-                <MDBCol md="6">
-                    {items.thumb}
-                </MDBCol>
-                <MDBCol md="6">
+            <MDBContainer>
+                {items.attr ? '':
                     <div>
-                        <h2>{items.name}</h2>
-                        <br />
-                        <div>{items.price}</div>
+
+                <MDBRow>
+                    <MDBCol md="6">
+                        {items.thumb}
+                    </MDBCol>
+                    <MDBCol md="6">
                         <div>
+                            <h2>{items.name}</h2>
+                            <br/>
+                            <div>Цена:{items.price}</div>
+                            <div>
+                                <MDBRow>
+                                    <MDBCol md="12">
+                                        {/*{items.attr.map((r) => (*/}
+                                        {/*    <MDBListGroup key={r.attribute_id}>*/}
+                                        {/*        <MDBListGroupItem key="firstname">{r.name}</MDBListGroupItem>*/}
+                                        {/*    </MDBListGroup>*/}
+                                        {/*))}*/}
+                                    </MDBCol>
+                                </MDBRow>
+                                <Link to="/products">
+                                    <MDBBtn>
+                                        <MDBIcon icon="angle-double-left"/>
+                                        Назад
+                                    </MDBBtn>
+                                </Link>
+                            </div>
                         </div>
+                    </MDBCol>
+
+                </MDBRow>
+
+                <MDBCard className={"description"}>
+                    {
+                        <div dangerouslySetInnerHTML={createMarkup(items.description)}/>
+
+                    }
+                </MDBCard>
                     </div>
-                </MDBCol>
+                    }
 
-            </MDBRow>
-
-            <MDBCard className={"description"}>
-                {
-                    <div dangerouslySetInnerHTML={createMarkup(items.description)} />
-
-                }
-            </MDBCard>
-            <MDBRow>
-                <MDBCol md="12">
-                    <MDBTable responsiveSm className="table-products">
-                        <MDBTableHead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Model</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Total</th>
-                            </tr>
-                        </MDBTableHead>
-                        <MDBTableBody>
-
-                        </MDBTableBody>
-                    </MDBTable>
-                </MDBCol>
-            </MDBRow>
-            <Link to="/products">
-                <MDBBtn>
-                    <MDBIcon icon="angle-double-left"/>
-                    Назад
-                </MDBBtn>
-            </Link>
-        </MDBContainer>
+            </MDBContainer>
         </div>
     );
 };
