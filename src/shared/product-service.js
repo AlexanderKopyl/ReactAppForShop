@@ -56,7 +56,7 @@ class ProductService {
                 product_id: items.product_id,
                 model: items.model,
                 name: oc_product_description.name,
-                attr: await this.getAllAttributes(match),
+                attr : await this.getAllAttributes(match),
                 description: oc_product_description.description,
                 price: +items.price + " UAH",
                 quantity: items.quantity,
@@ -80,7 +80,8 @@ class ProductService {
             items.forEach((elem) =>{
                 let data = {
                     text:elem.text,
-                    name:elem.oc_attribute_description.name
+                    name:elem.oc_attribute_description.name,
+                    attr_id:elem.oc_attribute_description.attribute_id
                 };
                 attrs.push(data)
             });
