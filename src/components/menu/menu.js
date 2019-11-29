@@ -15,36 +15,17 @@ export default class Menu extends Component{
 
 
             const result = await menuService.getCategories();
-            this.setState({items:result});
-
-            let {items} = this.state;
-            console.log(result);
-            result.map((elem) =>{
-                // elem.child.map((ch) => {
-                //     console.log(ch)
-                // })
-                console.log(elem);
-
-                // elem.child.then(
-                //     e =>{
-                //         this.setState({
-                //             child:e
-                //         })
-                //         elem.child = this.state.child;
-                //     }
-                // );
-
+            this.setState({
+                items:result
             });
 
-
-
-            console.log(this.state)
         };
-        fetchItems();
+        fetchItems()
     }
 
     render(){
         let {items} = this.state;
+        console.log(items);
         return (
             <div>
                 <ul className="nav navbar-nav">
@@ -54,15 +35,33 @@ export default class Menu extends Component{
                             {
                                 r.child.length ?
                                     <ul>
-                                {r.child.map((child) => (
+                                        {r.child.map((child) => (
+                                            <li key={child.category_id}>
+                                                <a href={"/category/" + child.category_id}>
+                                                    {child.name}
+                                                </a>
+                                                {   child.child.length > 0 ?
+                                                    <div>
+                                                        <span className="dropdown-toggle visible-xs visible-sm"><i
+                                                            className="fa fa-plus" aria-hidden="true"></i><i
+                                                            className="fa fa-minus" aria-hidden="true"></i></span>
+                                                        <div className="third-level dropdown-menu">
+                                                            <div className="dropdown-inner">
+                                                                <ul className="list-unstyled child">
+                                                                    {child.child.map((itemms) => (
+                                                                        <li key={itemms.category_id}>
+                                                                            <a href={"/category/" + itemms.category_id}>{itemms.oc_category_description.name}</a>
+                                                                        </li>
 
-                                        <li key={child.category_id}>
-                                            <a href={"/category/" + child.category_id}>
-                                                {child.oc_category_description.name}
-                                            </a>
-                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                        :''}
+                                            </li>
 
-                                ))}
+                                        ))}
                                     </ul>
                                 : ''}
                         </li>

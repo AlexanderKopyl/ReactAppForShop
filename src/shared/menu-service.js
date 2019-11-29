@@ -9,49 +9,54 @@ class MenuService {
     }
 
     async getCategories() {
-        let categories = await this.getAllCategories(0),
-            data = [],
-            children = [];
+        let categories = await this.getAllCategories();
 
-        categories.map((elem) => {
-            let children_data = [];
-            children = this.getAllCategories(elem.category_id);
-
-            children.then(elem => {
-                elem.map((item) =>{
-                    let child = this.getAllCategories(item.category_id);
-                    children_data.push({
-                        name:item.oc_category_description.name,
-                        parent:item.parent_id,
-                        category_id: item.category_id,
-                        child
-                    })
-                });
-            });
-            data.push(
-                {
-                    name: elem.oc_category_description.name,
-                    category_id:elem.category_id,
-                    child: children_data
-                }
-            );
-        });
-
-        return data;
+        return this.treeCategories(categories);
     }
 
-    async getAllCategories(category_id = 0) {
+    async getAllCategories() {
         try {
-            const data = await fetch(`${this.url}category/parent/${category_id}`, {
+            const data = await fetch(`${this.url}category`, {
                 headers: {
                     'Authorization': 'Bearer ' + fun.getItem('auth_token')
                 }
             });
             let {result} = await data.json();
-            return result ;
+            return result;
         } catch (e) {
             throw  new Error(e)
         }
+    }
+
+    treeCategories(data) {
+        let parent = data.filter(elem => elem.parent_id === 0),
+            dataReturn = [],
+            children = [];
+        parent.forEach(elem => {
+            let children_data = [];
+
+            children = data.filter(i => i.parent_id === elem.category_id);
+
+            children.forEach(item_child => {
+                let child = data.filter(i => i.parent_id === item_child.category_id);
+
+                children_data.push({
+                    name:item_child.oc_category_description.name,
+                    parent:item_child.parent_id,
+                    category_id: item_child.category_id,
+                    child
+                })
+            });
+
+            dataReturn.push( {
+                name: elem.oc_category_description.name,
+                category_id:elem.category_id,
+                child: children_data
+            });
+
+        });
+
+        return dataReturn;
     }
 }
 
