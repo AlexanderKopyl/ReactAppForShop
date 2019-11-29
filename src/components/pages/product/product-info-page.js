@@ -14,27 +14,26 @@ export default withRouter(class ProductPageInfo extends Component{
         attr: []
     };
 
+
     componentDidMount() {
 
         const fetchItems = async () => {
 
-                    await authService.checkAuthTokenTime();
-                    await productService.getProduct(this.props.match)
-                        .then(
-                        items=>
-                        {
+            await authService.checkAuthTokenTime();
+            await productService.getProduct(this.props.match)
+                .then(
+                    items => {
 
-                            this.setState({
-                                items: items,
-                                attr: items.attr
-                            })
+                        this.setState({
+                            items: items,
+                            attr: items.attr
+                        })
 
-                        }
+                    }
+                );
 
-                    );
-
-                };
-                fetchItems();
+        };
+        fetchItems();
     }
 
 
