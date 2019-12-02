@@ -79,12 +79,6 @@ export default withRouter(class ProductPageInfo extends Component{
                                                         </MDBListGroup>
                                                 </MDBCol>
                                             </MDBRow>
-                                            <Link to="/products">
-                                                <MDBBtn>
-                                                    <MDBIcon icon="angle-double-left"/>
-                                                    Назад
-                                                </MDBBtn>
-                                            </Link>
                                         </div>
                                     </div>
                                 </MDBCol>

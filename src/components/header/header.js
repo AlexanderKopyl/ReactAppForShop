@@ -5,7 +5,6 @@ import {
 } from "mdbreact";
 import './header.css';
 import fun from '../../lib/function';
-import Menu from "../menu/menu";
 
 class Header extends Component {
 
@@ -55,11 +54,12 @@ class Header extends Component {
                                 <MDBNavLink to="/products">Продукты</MDBNavLink>
                             </MDBNavItem>
                             <MDBNavItem>
+                                <MDBNavLink to="/categories">Категории</MDBNavLink>
+                            </MDBNavItem><MDBNavItem>
                                 <MDBNavLink to="/contact">Контакты</MDBNavLink>
                             </MDBNavItem>
                         </MDBNavbarNav>
                         <MDBNavbarNav right>
-                            <Menu/>
                             <MDBNavItem>
                                 {isAuth ? <MDBNavLink to='/' onClick={this.loggOut} className="logout-link"><MDBIcon icon="user"/>Выйти</MDBNavLink> :''}
                             </MDBNavItem>

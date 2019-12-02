@@ -4,6 +4,8 @@ import './App.css';
 import {
     ContactPage,
     LoginPage,
+    CategoryPageInfo,
+    CategoryPage,
     Orders,
     ProductPage,
     ProductPageInfo,
@@ -57,6 +59,12 @@ export default function App() {
                     )}/>
                     <Route path="/products/:id" render={() => (
                         <ProductPageInfo/>
+                    )}/>
+                    <Route path="/categories" exact render={() => (
+                    <CategoryPage/>
+                    )}/>
+                    <Route path="/categories/:id" render={() => (
+                        <CategoryPageInfo/>
                     )}/>
                     <Route path="/login" component={LoginPage}/>
                     <Route render={() => <h2>Page not found</h2>}/>

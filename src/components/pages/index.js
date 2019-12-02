@@ -7,6 +7,8 @@ import ProductPageInfo from './product/product-info-page';
 import CustomerPage from './customer/customer-page';
 import BalancePage from './balance-page';
 import DocumentPage from './document-page';
+import CategoryPage from './category/category-page';
+import CategoryPageInfo from './category/category-page-info';
 import MainPage from './main-page';
 
 
@@ -14,6 +16,8 @@ import MainPage from './main-page';
 export {
     ContactPage,
     Orders,
+    CategoryPage,
+    CategoryPageInfo,
     ProductPage,
     ProductPageInfo,
     LoginPage,
